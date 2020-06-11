@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function f1() {
+        console.log('f1')
+        return 1
+    }
+    function f2() {
+        console.log(arguments)
+        return 2
+    }
+    function f3() {
+        console.log(arguments)
+        return 3
+    }
+    compose(f1,f2,f3)
+    function compose(...func) {
+       console.log(func)
+        func.reduce((a,b)=>
+            (...args)=>{
+            b(a(...args))
+        }
+        )()
+     }
+
+     var a = [12,3,4,5]
+     function sume(a,b) {
+
+         return a+b
+     }
+     var b = a.reduce(sume);
+    console.log(b)
+</script>
+</html>

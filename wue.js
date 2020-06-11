@@ -18,11 +18,13 @@ Wue.prototype.observe = function (data) {
     });
 };
 Wue.prototype.proxyDate = function(key) {
+    // 向vue的实例上定义属性
     Object.defineProperty(this,key,{
         get(){
            return this.$data[key]
         },
         set(val) {
+            alert(val)
             this.$data[key] = val
         }
     })
@@ -30,6 +32,14 @@ Wue.prototype.proxyDate = function(key) {
 Wue.prototype.defineReactive = function (obj,key,val) {
     this.observe(val);
     var dep = new Dep();
+   // console.log(obj);
+   //  console.log(key);
+   //  console.log(val);
+    var that = this;
+    // if (typeof val==='object') {
+    //   console.log(this.observe(val));
+    //
+    // }
     Object.defineProperty(obj,key,{
         enumerable: true, //可配置 可枚举
         configurable: true, // 可删除的
@@ -37,12 +47,15 @@ Wue.prototype.defineReactive = function (obj,key,val) {
             if (newval===val) {
                 return
             }
-            val = newval
+            val = newval;
+            that.observe(val)
             dep.notify()
         },
         // 初始化首先触发的是get
         get() {
+          console.log(Dep.target)
           Dep.target&&dep.addep(Dep.target);
+          console.log(val)
           return val
         }
     })
@@ -51,6 +64,7 @@ Wue.prototype.defineReactive = function (obj,key,val) {
 // 依赖管理器
 /*
 *  负责视图中所有的依赖和管理，包括添加依赖和通知
+*  大管家 管理若干watcher
 * */
 function Dep() {
    this.deps = [];  //deps里面存放的全是Watcher的实例
@@ -74,12 +88,11 @@ function Watcher(vm,key,cb) {
     // 将来new 一个监听器时，将当前的Watcher实例附加到 Dep.target上
     // 避免不必要的重复添加
     Dep.target = this;
-    console.log(this);
     this.vm[key];
     Dep.target = null;
 }
 Watcher.prototype.update = function () {
     // console.log('视图更新啦')
     console.log(this.vm[this.key])
-    this.cb.call(thi .vm,this.vm[this.key]);
+    this.cb.call(this.vm,this.vm[this.key]);
 }

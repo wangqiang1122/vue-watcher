@@ -8,14 +8,15 @@
 </head>
 <body>
   <div id="div">
-      <div class="s">
-          <p>{{name}}</p>
-          <h2>{{name}}</h2>
-           {{test}}
-      </div>
-          <div w-html="div"></div>
-          <h1>{{test}}</h1>
-      <input type="text" w-model="test">
+      <!--<div class="s">-->
+          <!--<p>{{name}}</p>-->
+          <!--<h2>{{name}}</h2>-->
+           <!--<div>{{test}}</div>-->
+      <!--</div>-->
+      <div>{{foo.age}}</div>
+          <!--<div w-html="div"></div>-->
+          <!--<h1>{{test}}</h1>-->
+      <!--<input type="text" w-model="test">-->
 
   </div>
       <!--<span w-text="test"></span>-->
@@ -24,13 +25,17 @@
     var a =new Wue({
         el: '#div',
         data: {
-            test: 'haahah',
-            name: 'hello',
-            foo: { age: 111 },
-            div: '<h1>dadas</h1>'
+            // test: 'haahah',
+            // name: 'hello',
+            foo: { age: "ffff" },
+            // div: '<h1>dadas</h1>'
         }
     })
     // console.log(a.$data.foo.age)
-    a.$data.foo.age = 122;
+    // a.$data.foo.age = '312312'
+    // a.$data.test = '2222222'
+
+    // console.log(a.$data.foo.age)
+    console.log(a)
 </script>
 </html>

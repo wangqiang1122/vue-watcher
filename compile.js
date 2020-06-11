@@ -34,6 +34,7 @@ Compile.prototype.complile = function (el) {
            this.compileElement(node)
        } else if(this.isTextNode(node)&&/\{\{(.*)\}\}/.test(node.textContent)){
            // 只关心{{XXXX}}
+           console.log(RegExp.$1)
            this.compileText(node,RegExp.$1)
        }
        //遍历子节点
@@ -89,6 +90,8 @@ Compile.prototype.eventHandler = function () {
 // 处理文本
 Compile.prototype.text = function (node,vm,exp) {
    // 更新节点的文本
+    // 如果是对象需要多次循环
+    var arr = exp.split(',');
     this.update(node,vm,exp,'text') // 指明类型
 }
 // 处理html
@@ -108,8 +111,19 @@ Compile.prototype.model = function (node,vm,exp) {
 }
 // 更新非常重要
 Compile.prototype.update = function (node,vm,exp,dir) {
+  // console.log(node,vm,exp,dir)
   let updaterFn = this[dir+'Updater'];
-  updaterFn&&updaterFn(node,vm[exp]); // 执行更新  get操作
+  // if(exp.indexOf('.')>0) {
+  //     let arrexp = exp.split('.');
+  //     updaterFn&&updaterFn(node,vm[arrexp[0]][arrexp[1]]); // 执行更新  get操作
+  // } else {
+      updaterFn&&updaterFn(node,vm[exp]); // 执行更新  get操作
+  // }
+  // if (exp.indexOf('.')>0) {
+  //     let arrexp = exp.split('.');
+  // }
+  // alert(exp);
+  console.log(exp)
   new Watcher(vm,exp,(val)=>{
       updaterFn&&updaterFn(node,val);
   })
