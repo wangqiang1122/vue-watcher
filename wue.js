@@ -32,9 +32,6 @@ Wue.prototype.proxyDate = function(key) {
 Wue.prototype.defineReactive = function (obj,key,val) {
     this.observe(val);
     var dep = new Dep();
-   // console.log(obj);
-   //  console.log(key);
-   //  console.log(val);
     var that = this;
     // if (typeof val==='object') {
     //   console.log(this.observe(val));
@@ -47,18 +44,21 @@ Wue.prototype.defineReactive = function (obj,key,val) {
             if (newval===val) {
                 return
             }
+            console.log(val)
+            console.log(key)
             val = newval;
-            that.observe(val)
             dep.notify()
         },
         // 初始化首先触发的是get
         get() {
-          console.log(Dep.target)
+          console.log(Dep.target);
           Dep.target&&dep.addep(Dep.target);
-          console.log(val)
           return val
         }
     })
+    // console.log(obj);
+    // console.log(key);
+    // console.log(val);
 };
 
 // 依赖管理器
@@ -87,9 +87,11 @@ function Watcher(vm,key,cb) {
     this.cb = cb;
     // 将来new 一个监听器时，将当前的Watcher实例附加到 Dep.target上
     // 避免不必要的重复添加
-    Dep.target = this;
-    this.vm[key];
-    Dep.target = null;
+    // key.split('.').forEach(item=>{
+        Dep.target = this;
+        this.vm[key];
+        Dep.target = null;
+    // })
 }
 Watcher.prototype.update = function () {
     // console.log('视图更新啦')

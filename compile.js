@@ -91,12 +91,24 @@ Compile.prototype.eventHandler = function () {
 Compile.prototype.text = function (node,vm,exp) {
    // 更新节点的文本
     // 如果是对象需要多次循环
-    var arr = exp.split(',');
-    this.update(node,vm,exp,'text') // 指明类型
+    var g = exp.split('.');
+    let current = vm;
+    while (g.length){
+        let h = g.shift();
+        if (g.length===0) {
+            console.log(current);
+            this.update(node,current,h,'text') // 指明类型
+        } else {
+            current = current[h];
+            console.log(current)
+            this.update(node,current,h,'text') // 指明类型
+        }
+    }
 }
 // 处理html
 Compile.prototype.html = function (node,vm,exp) {
     // 更新节点的文本
+    // 文本节点有可能是字符串有可能是对象
     this.update(node,vm,exp,'html') // 指明类型
 }
 // 处理双向绑定
@@ -112,17 +124,10 @@ Compile.prototype.model = function (node,vm,exp) {
 // 更新非常重要
 Compile.prototype.update = function (node,vm,exp,dir) {
   // console.log(node,vm,exp,dir)
+
   let updaterFn = this[dir+'Updater'];
-  // if(exp.indexOf('.')>0) {
-  //     let arrexp = exp.split('.');
-  //     updaterFn&&updaterFn(node,vm[arrexp[0]][arrexp[1]]); // 执行更新  get操作
-  // } else {
-      updaterFn&&updaterFn(node,vm[exp]); // 执行更新  get操作
-  // }
-  // if (exp.indexOf('.')>0) {
-  //     let arrexp = exp.split('.');
-  // }
-  // alert(exp);
+  console.log(vm)
+  updaterFn&&updaterFn(node,vm[exp]); // 执行更新  get操作;
   console.log(exp)
   new Watcher(vm,exp,(val)=>{
       updaterFn&&updaterFn(node,val);
