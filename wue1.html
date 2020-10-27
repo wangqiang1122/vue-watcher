@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='./ue.js'></script>
+    <script src='./ast.js'></script>
+    <script src="./generate.js"></script>
+    <script src="./render/index.js"></script>
+    <script src="./patch.js"></script>
+</head>
+<body>
+    <div  style="color: red;font-size: 10px;"  id='div1' >
+       dad {{name}}
+       <span>我是{{age}}</span>
+       <span>你们好</span>
+    </div>
+        <!-- <div @click="cli">{{name}}</div>
+        <div>{{arr}}</div> --> 
+</body>
+<script>
+    var g = new Wue({
+        el: '#div1',
+        data: {
+            name:'哈哈哈哈',
+            arr: ['2',45,6],
+            age: '2222'
+        },
+        methods: {
+            cli: function() {
+                console.log('我点击了')
+            } 
+        }
+    })
+    // setTimeout(()=>{
+    //    g.name = '我便化了'
+    //    g.arr.push('你好')
+    // },1000)
+</script>
+</html>
