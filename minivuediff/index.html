@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <script src="./js/dep.js"></script>
+    <script src="./js/observer.js"></script>
+    <script src="./js/watcher.js"></script>
+
+    <script src="./compile/generate.js"></script>
+    <script src="./compile/parseHTML.js"></script>
+    <script src="./compile/index.js"></script>
+    <script src="./patch/index.js"></script>
+
+    <script src="./minivue.js"></script>
+</head>
+<body>
+    <div id='div1'>
+        dasd <div>{{name}}</div>
+        <div style="color: red;">我是{{age}}</div>
+    </div>
+    <!-- <div  style="color: red;font-size: 10px;"  id='div1' >
+        dad {{name}}
+        <span>我是{{age}}</span>
+        <span>你们好</span>
+     </div> -->
+</body>
+<script>
+   var t =  new Minivue({
+        el: '#div1',
+        data: {
+            name:'哈哈哈哈',
+            age: '2222'
+        },
+    })
+    let num1 =1
+    setTimeout(()=>{
+        t.name = '我变化了'+num1++
+    },2000)
+</script>
+</html>

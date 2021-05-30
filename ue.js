@@ -135,6 +135,7 @@ class Compile {
     var code = generate(ast)
     console.log(code)
     var render = new Function(`with(this){ return ${code} }`)
+    console.log(render)
     this.$vm._render = render;
   }
   compile(el) {
@@ -216,11 +217,13 @@ class Compile {
       this.key = key;
       this.updateFn = updateFn;
       Dep.target = this;
+      alert(this.vm[key])
       this.vm[key]; // 在new watcher时去执行获取操作 把当前watcher押入到dep里
       Dep.target = null;
     }
     // watcher 更新操作
     update() {
+     console.log(this.updateFn) 
      this.updateFn&&this.updateFn.call(this.vm,this.vm[this.key])
     }
  }
@@ -230,6 +233,7 @@ class Compile {
     this.deps = []
    }
    addDep(watcher) {
+     console.log(watcher)
      this.deps.push(watcher)
    }
    notify() {
@@ -268,6 +272,7 @@ function observe(obj) {
           if (value!==newvalue) {
             observe(newvalue);
             value = newvalue;
+            console.log(dep)
             dep.notify()
           }
          },
