@@ -74,3 +74,10 @@ function renderMinix(Vue) {
        console.log(Vue._render())    
        return Vue._render()
 }
+
+Minivue.components = function(name,component) {
+//    console.log(name)
+//    console.log(component)
+let ast = parseHTML(component.template)
+console.log(ast)
+}   

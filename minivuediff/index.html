@@ -38,9 +38,21 @@
             age: '2222'
         },
     })
-    let num1 =1
-    setTimeout(()=>{
-        t.name = '我变化了'+num1++
-    },2000)
+    Minivue.components('wheader',{
+        data: function() {
+            return {
+               name: '我是组件的name' 
+            }
+        },
+        template: `<div>
+                     凡人
+                     <span>我是span</span>   
+                     <div>{{name}}</div>    
+                   </div`
+    })
+    // let num1 =1
+    // setTimeout(()=>{
+    //     t.name = '我变化了'+num1++
+    // },2000)
 </script>
 </html>

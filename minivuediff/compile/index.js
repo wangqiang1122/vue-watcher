@@ -97,12 +97,13 @@ class Compile {
       const fn = this[dir + 'Updater'];
       const reg1 = /{{.*}}/gi
       fn && fn(node, this.$vm[exp])
-          // 更新:
-      new Watcher(this.$vm, exp, (val)=> {
-            // console.log(val)
-            // console.log(node)
-            fn && fn(node, val)
-      })
+      console.log('进行diff')
+      // 更新:
+      // new Watcher(this.$vm, exp, (val)=> {
+      //       // console.log(val)
+      //       // console.log(node)
+      //       fn && fn(node, val)
+      // })
     }
     textUpdater(node,value) {
         console.log(node)

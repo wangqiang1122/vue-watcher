@@ -21,6 +21,12 @@ const attrziding = /^\s*([a-z]*)(=)(?:"|')((;|:|\w|\s|-)*)(?:"|')/;
 const endtagReg = /^\s*(?:<\/)([a-z]*)(?:>)/
 // console.log(endstr.match(endtag))
 function parseHTML(html) {
+    if (typeof html=='string') {
+        let div = document.createElement('div');
+        div.innerHTML = html;
+        html = div.firstChild;
+        console.log(html)
+    }
     // root是根节点
     let root = null, stack = [], crrentNode;
 
