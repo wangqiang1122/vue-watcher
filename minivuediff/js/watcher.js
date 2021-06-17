@@ -13,6 +13,6 @@ function Watcher(vm,key,cb) {
 }
 Watcher.prototype.update = function () {
     // console.log('视图更新啦')
-    console.log(this.vm[this.key])
+    // console.log(this.vm[this.key])
     this.cb.call(this.vm,this.vm[this.key]);
 }

@@ -1,5 +1,6 @@
 // Compile 编译 // 简略版比vue的简单多了
-class Compile {
+let uid = 0;
+class Compile {g  
     constructor(el,vm) {
       // 当前实例
       this.$vm = vm;
@@ -11,25 +12,26 @@ class Compile {
       var ast = parseHTML(this.$el)
       console.log(ast)
       // // 生成render函数
-    //   var render = generate(ast)
+      // var code = generate(ast)
     //   console.log(render)
-    //   console.log(code)
-    //   this.$vm._render = code;
+      // console.log(code)
+    // this.$vm._render = code;
        
    
     // 用with作用域的方式
-    //   var render = new Function(`with(this){ return ${code} }`)
+      // var render = new Function(`with(this){ return ${code} }`)
+      // console.log(render)
     // 用数据劫持的方式
-    console.log(this.astCompile(ast)) 
+    // console.log(this.astCompile(ast)) 
 
     // console.log(ast) 
     // //   console.log(render)
-    //   this.$vm._render = render;
-    this.$vm.vdom = ast;
+      // this.$vm._render = render;
+    // this.$vm.vdom = ast;
     }
     astCompile(ast) {
       ast.children.forEach((itemNode)=>{
-         console.log(itemNode) 
+        //  console.log(itemNode) 
         //  console.log(Array.isArray(itemNode.children))
          console.log(this.isInter(itemNode))
         if(this.isElement(itemNode)&&!Array.isArray(itemNode.children)) {
@@ -38,7 +40,7 @@ class Compile {
             this.compileText(itemNode)
           }
           // 如果还有子元素继续循环
-          console.log(itemNode)
+          // console.log(itemNode)
           if (Array.isArray(itemNode.children)){
               this.astCompile(itemNode)
           } 
@@ -106,9 +108,9 @@ class Compile {
       // })
     }
     textUpdater(node,value) {
-        console.log(node)
-        console.log(/\{\{(.*)\}\}/.exec(node.children))
-        console.log(value) 
+        // console.log(node)
+        // console.log(/\{\{(.*)\}\}/.exec(node.children))
+        // console.log(value) 
         if (node.el) {
             node.el.textContent = value
             return 

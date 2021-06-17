@@ -31,6 +31,18 @@
      </div> -->
 </body>
 <script>
+    // Minivue.components('wheader',{
+    //     data: function() {
+    //         return {
+    //            name: '我是组件的name' 
+    //         }
+    //     },
+    //     template: `<div>
+    //                  凡人
+    //                  <span>我是span</span>   
+    //                  <div>{{name}}</div>    
+    //                </div`
+    // })
    var t =  new Minivue({
         el: '#div1',
         data: {
@@ -38,18 +50,7 @@
             age: '2222'
         },
     })
-    Minivue.components('wheader',{
-        data: function() {
-            return {
-               name: '我是组件的name' 
-            }
-        },
-        template: `<div>
-                     凡人
-                     <span>我是span</span>   
-                     <div>{{name}}</div>    
-                   </div`
-    })
+    console.log(t)
     // let num1 =1
     // setTimeout(()=>{
     //     t.name = '我变化了'+num1++

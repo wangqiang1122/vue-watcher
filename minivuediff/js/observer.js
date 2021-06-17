@@ -6,10 +6,10 @@ class Observer {
     this.dep = new Dep();
     def(value, '__ob__', this) // 给对对象绑定了一个observer
     // 需要判断当前数据是不是数组 数组比较特殊
-    console.log(this.value)
+    // console.log(this.value)
     if (Array.isArray(this.value)) {
-      console.log('数组双向绑定的操作')
-      console.log(value)
+      // console.log('数组双向绑定的操作')
+      // console.log(value)
       protoAugment(value, arrayMethods)
     } else {
       // 对象进行具体响应式
@@ -28,7 +28,7 @@ class Observer {
 function defineReactive(obj, key, value) {
   // 深层次的遍历
   var a = observe(value);
-  console.log(a)
+  // console.log(a)
   // 每个对象都需要生成一个dep对象收集watcer
   let dep = new Dep(); // get 时需要收集一次依赖
   Object.defineProperty(obj, key, {

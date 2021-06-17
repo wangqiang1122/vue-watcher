@@ -25,7 +25,6 @@ function parseHTML(html) {
         let div = document.createElement('div');
         div.innerHTML = html;
         html = div.firstChild;
-        console.log(html)
     }
     // root是根节点
     let root = null, stack = [], crrentNode;
@@ -39,7 +38,7 @@ function parseHTML(html) {
         let textEnd = html1.indexOf('<'); // 说明是前面的
         if (textEnd == 0) { // 说明是标签
             const startTagMatch = parseStartTag() // 前标签
-            console.log('++++' + JSON.stringify(startTagMatch))
+            // console.log('++++' + JSON.stringify(startTagMatch))
             // 对标签里字符串内容进行收集
             if (startTagMatch) {
                 start(startTagMatch.tagName, startTagMatch.attrs)
@@ -47,7 +46,7 @@ function parseHTML(html) {
             }
             // 是否是尾部标签的
             const endTagMatch = html1.match(endtagReg)
-            console.log(endTagMatch)
+            // console.log(endTagMatch)
             if (endTagMatch) {
                 advance(endTagMatch[0].length)
                 end(endTagMatch[1])
@@ -74,7 +73,7 @@ function parseHTML(html) {
         // 需要判断是不是子节点 判断跟节点有没有
         let match = null;
         const start = html1.match(startTagOpen) // 分解ast 得出当前标签
-        console.log(start)
+        // console.log(start)
         // 对标签的处理
         if (start && !html1.match(endtagReg)) {
             // root.tag = start[1]
@@ -91,7 +90,7 @@ function parseHTML(html) {
         // console.log(html1.match(/^\s*>/))
         // 判断不是闭合标签 循环出属性值
         while (!(end = html1.match(/^\s*>/)) && (attrs = html1.match(attrziding))) {
-            console.log(attrs);
+            // console.log(attrs);
             match.attrs.push(
                 {
                     name: attrs[1],
@@ -101,7 +100,7 @@ function parseHTML(html) {
             advance(attrs[0].length)
         }
         // 对闭合标签的判断
-        console.log(/\s*>/.test(html1))
+        // console.log(/\s*>/.test(html1))
         // 匹配到了结束标签
         if (end) {
             advance(end[0].length)
@@ -113,8 +112,8 @@ function parseHTML(html) {
     }
     // 
     function start(tagName, attrs) {
-        console.log('-----开始---')
-        console.log(tagName, attrs)
+        // console.log('-----开始---')
+        // console.log(tagName, attrs)
         // 开始处理开始标签
         let element = createASTElement(tagName, attrs)
         // 根的链表生成
@@ -127,7 +126,7 @@ function parseHTML(html) {
         stack.push(element)
     }
     function end(tagName) {
-        console.log('----结束----')
+        // console.log('----结束----')
         // 结束最为复杂
         let element = stack.pop();
         // 找到父级
@@ -136,10 +135,10 @@ function parseHTML(html) {
             element.parent = crrentNode;
             crrentNode.children.push(element)
         }
-        console.log(tagName)
+        // console.log(tagName)
     }
     function chair(text) {
-        console.log('----文本----')
+        // console.log('----文本----')
         // console.log(text.trim())
         // let text = text.tirm();
         crrentNode.children.push({

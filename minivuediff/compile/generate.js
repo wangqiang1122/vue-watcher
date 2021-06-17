@@ -55,7 +55,7 @@ function gentateChild(node) {
         // 文字解析 需要分理出变量
         var text = node.children;
         if (!defaultTagRE.test(text)) {
-            console.log(text)
+            // console.log(text)
             return `_v(${JSON.stringify(text)})`
         }
         let match, index, lastIndex = defaultTagRE.lastIndex = 0, textArr = [];
@@ -82,7 +82,7 @@ function getChildren(ast) {
 function generate(ast) {
     // 处理children
     let children = getChildren(ast)
-    console.log(ast)
+    // console.log(ast)
     let code = `_c('${ast.tag}',${ast.attrs.length > 0
             ? `${formatProps(ast.attrs)},` : 'undefined,'}${children ? children : ''})
  ` ;
