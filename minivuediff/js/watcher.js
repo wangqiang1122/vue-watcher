@@ -1,8 +1,10 @@
+let uid = 0
 // 具体的更新执行者
 function Watcher(vm,key,cb) {
     this.vm = vm;
     this.key = key;
     this.cb = cb;
+    this.uid = uid++
     // 将来new 一个监听器时，将当前的Watcher实例附加到 Dep.target上
     // 避免不必要的重复添加
     // key.split('.').forEach(item=>{

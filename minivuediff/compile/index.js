@@ -1,5 +1,5 @@
 // Compile 编译 // 简略版比vue的简单多了
-let uid = 0;
+// let uid = 0;
 class Compile {g  
     constructor(el,vm) {
       // 当前实例
@@ -11,12 +11,9 @@ class Compile {g
       // ast 模版编译
       var ast = parseHTML(this.$el)
       console.log(ast)
-      // // 生成render函数
-      // var code = generate(ast)
-    //   console.log(render)
-      // console.log(code)
-    // this.$vm._render = code;
-       
+      // 需要进行watcher
+      this.astCompile(ast)
+      
    
     // 用with作用域的方式
       // var render = new Function(`with(this){ return ${code} }`)
@@ -31,16 +28,16 @@ class Compile {g
     }
     astCompile(ast) {
       ast.children.forEach((itemNode)=>{
-        //  console.log(itemNode) 
-        //  console.log(Array.isArray(itemNode.children))
          console.log(this.isInter(itemNode))
         if(this.isElement(itemNode)&&!Array.isArray(itemNode.children)) {
-            this.compileElement(itemNode)
+            // this.compileElement(itemNode)
           } else if(this.isInter(itemNode)&&!Array.isArray(itemNode.children)) {
-            this.compileText(itemNode)
+            // 如果发现有有变量 需要给当前组件 附一个当前watcher 的uid
+            
+            // this.compileText(itemNode)
           }
-          // 如果还有子元素继续循环
-          // console.log(itemNode)
+        //   // 如果还有子元素继续循环
+        //   // console.log(itemNode)
           if (Array.isArray(itemNode.children)){
               this.astCompile(itemNode)
           } 
@@ -83,6 +80,7 @@ class Compile {g
     }
     // 定义字符串
     compileText(node) {
+      console.log(node)
       // console.log(text)
       // 更新模版里 {{name}}
       this.update(node, RegExp.$1, 'text')
