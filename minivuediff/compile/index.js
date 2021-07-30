@@ -1,6 +1,6 @@
 // Compile 编译 // 简略版比vue的简单多了
 // let uid = 0;
-class Compile {g  
+class Compile {
     constructor(el,vm) {
       // 当前实例
       this.$vm = vm;
@@ -10,10 +10,15 @@ class Compile {g
       // this.compile(this.$el)
       // ast 模版编译
       var ast = parseHTML(this.$el)
-      console.log(ast)
+      var code = generate(ast)
+      var render = new Function(`with(this){ return ${code} }`)
+      console.log(render)
+      this.$vm._render = render;
+      console.log(this.$vm._render())
+      console.log(this.$vm)
+      new Watcher(this.$vm,ast)
       // 需要进行watcher
-      this.astCompile(ast)
-      
+      // this.astCompile(ast)
    
     // 用with作用域的方式
       // var render = new Function(`with(this){ return ${code} }`)
@@ -27,14 +32,15 @@ class Compile {g
     // this.$vm.vdom = ast;
     }
     astCompile(ast) {
+      // let watcher = new 
       ast.children.forEach((itemNode)=>{
          console.log(this.isInter(itemNode))
         if(this.isElement(itemNode)&&!Array.isArray(itemNode.children)) {
             // this.compileElement(itemNode)
           } else if(this.isInter(itemNode)&&!Array.isArray(itemNode.children)) {
             // 如果发现有有变量 需要给当前组件 附一个当前watcher 的uid
-            
-            // this.compileText(itemNode)
+
+            this.compileText(itemNode)
           }
         //   // 如果还有子元素继续循环
         //   // console.log(itemNode)
@@ -81,6 +87,7 @@ class Compile {g
     // 定义字符串
     compileText(node) {
       console.log(node)
+      console.log(RegExp.$1)
       // console.log(text)
       // 更新模版里 {{name}}
       this.update(node, RegExp.$1, 'text')
@@ -98,7 +105,7 @@ class Compile {g
       const reg1 = /{{.*}}/gi
       fn && fn(node, this.$vm[exp])
       console.log('进行diff')
-      // 更新:
+      // // 更新:
       // new Watcher(this.$vm, exp, (val)=> {
       //       // console.log(val)
       //       // console.log(node)
@@ -109,12 +116,13 @@ class Compile {g
         // console.log(node)
         // console.log(/\{\{(.*)\}\}/.exec(node.children))
         // console.log(value) 
-        if (node.el) {
-            node.el.textContent = value
-            return 
-        }
-        // 更新文字 
-        node.onechildren = node.children.replace(/\{\{(.*)\}\}/,value)
+        alert('更新')
+        // if (node.el) {
+        //     node.el.textContent = value
+        //     return 
+        // }
+        // // 更新文字 
+        // node.onechildren = node.children.replace(/\{\{(.*)\}\}/,value)
     }
       // 判断是否是插值表达式{{xx}}
     isInter(node) {

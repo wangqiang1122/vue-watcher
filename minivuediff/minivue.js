@@ -15,6 +15,7 @@ class Minivue {
             this.$el = obj.el; // 保存el
             new Compile(this.$el, this);
             // var vnode = renderMinix(this)
+            // console.log(vnode)
             // patch(this.$el,vnode)
         } else {
            if (this.$children) {

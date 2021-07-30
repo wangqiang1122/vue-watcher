@@ -42,6 +42,7 @@ function defineReactive(obj, key, value) {
     },
     get() {
       // Dep.target其实就是一个watcher 也就是我们已经写好的更新函数
+      console.log(Dep.target)
       Dep.target && dep.addDep(Dep.target) // 收集watcher依赖、
       // 需要收集v数组的watcher
       if (a) {

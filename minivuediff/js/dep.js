@@ -15,9 +15,19 @@
     }
     addDep(watcher) {
       console.log(watcher)
-      this.deps.push(watcher)
+      if (this.deps.length==0) {
+        this.deps.push(watcher)
+      } else {
+        this.deps.forEach(item=>{
+          if (item.uid!=watcher.uid) {
+            this.deps.push(watcher)
+          }
+        })
+      }
     }
     notify() {
+      // console.log(this.deps)
+      // alert()
      // 执行该对象属性收集的 watcher 模版中用到多少 就有多少
      this.deps.forEach(watcher => watcher.update())
    }
